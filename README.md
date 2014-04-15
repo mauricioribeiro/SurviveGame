@@ -6,9 +6,9 @@ Survive Game
 
 <h3>Desenvolvedores</h3>
 <ul>
-<li>Mauricio</li>
-<li>Carlos V.</li>
-<li>Bruno</li>
+<li><a href="https://github.com/mauricioribeiro" target="_blank">Mauricio (mauricioribeiro)</a></li>
+<li><a href="https://github.com/gomesgagore" target="_blank">Carlos V. (gomesgagore)</a></li>
+<li><a href="https://github.com/bfviana" target="_blank">Bruno (bfviana)</a></li>
 <li>Everton</li>
 <li>Carlos A.</li>
 </ul>
