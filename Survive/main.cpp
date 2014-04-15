@@ -8,11 +8,12 @@ int main()
     sf::CircleShape player(50.f);
 
 	//sf::Font font;
-	//font.loadFromFile("arial.ttf");
+	//font.loadFromFile("C:/Windows/Fonts/Arial.ttf");
 
-	//sf::Text text("Welcome to Survive. Press ESC to exit, or ENTER to Play",font);
-	//text.setCharacterSize(30);
-	//text.setColor(sf::Color::Red);
+	sf::Text text;
+	//text.setFont(font);
+	text.setString("Welcome to Survive. Press ESC to exit, or ENTER to Play");
+	text.setColor(sf::Color::Red);
 
 	int color = 1;
 	int run = 0;
@@ -64,8 +65,8 @@ int main()
 
 			window.draw(player);
 
-		//} else {
-			//window.draw(text);
+		} else {
+			window.draw(text);
 		}
 
         window.display();
