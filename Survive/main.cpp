@@ -4,19 +4,21 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Survive - The Game");
-    sf::CircleShape player(50.f);
+	int WINDOW_W = 800, WINDOW_H = 600, PLAYER_SPEED = 1, PLAYER_SIZE = 20.f, PLAYER_COLOR [3] = {133,184,235};
 
-	//sf::Font font;
-	//font.loadFromFile("C:/Windows/Fonts/Arial.ttf");
+    sf::RenderWindow window(sf::VideoMode(WINDOW_W, WINDOW_H), "Survive - The Game");
+	sf::View display(sf::FloatRect(200, 200, 300, 200));
+    sf::CircleShape player(PLAYER_SIZE);
+	player.setFillColor(sf::Color::Color(PLAYER_COLOR[0],PLAYER_COLOR[1],PLAYER_COLOR[2]));
 
-	sf::Text text;
-	//text.setFont(font);
-	text.setString("Welcome to Survive. Press ESC to exit, or ENTER to Play");
-	text.setColor(sf::Color::Red);
+	sf::Font font;
+	if(!font.loadFromFile("fonts/arial.ttf")) return 0;
 
-	int color = 1;
-	int run = 0;
+	sf::Text text("Welcome to Survive. Press ESC to exit, or ENTER to Play",font,14);
+	text.setColor(sf::Color::White);
+	text.setPosition((WINDOW_W-text.getLocalBounds().width)/2,WINDOW_H/2);
+
+	int RUN = 0;
 
     while (window.isOpen())
     {
@@ -28,24 +30,11 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)){	
-			run = 1;
-		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) RUN = 1;
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) window.close();
 		
-		if(run==1){
+		if(RUN==1){
 			sf::Vector2f player_position = player.getPosition();
-
-			if(color==1){
-				player.setFillColor(sf::Color::Red);
-			} else {
-				player.setFillColor(sf::Color::Green);
-			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)){
-				color = 1;
-			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::G)){
-				color = 0;
-			}
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){	
 				player.setPosition(player_position.x +1, player_position.y);
@@ -59,16 +48,13 @@ int main()
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){	
 				player.setPosition(player_position.x, player_position.y +1);
 			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){	
-				window.close();
-			}
 
 			window.draw(player);
 
 		} else {
 			window.draw(text);
 		}
-
+		
         window.display();
     }
 

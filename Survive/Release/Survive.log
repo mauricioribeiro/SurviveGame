@@ -1,14 +1,25 @@
-﻿Build started 4/14/2014 10:42:55 PM.
+﻿Build started 4/18/2014 10:58:20 AM.
      1>Project "C:\Users\Mauricio\Documents\GitHub\SurviveGame\Survive\Survive.vcxproj" on node 2 (build target(s)).
      1>InitializeBuildStatus:
-         Touching "Release\Survive.unsuccessfulbuild".
+         Creating "Release\Survive.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         All outputs are up-to-date.
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I"C:\SFML-2.0\include" /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+     1>main.cpp(7): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>main.cpp(11): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>main.cpp(19): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Mauricio\Documents\GitHub\SurviveGame\Survive\Release\Survive.exe" /INCREMENTAL:NO /NOLOGO "sfml-graphics.lib" "sfml-window.lib" "sfml-system.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release\Survive.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Mauricio\Documents\GitHub\SurviveGame\Survive\Release\Survive.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Mauricio\Documents\GitHub\SurviveGame\Survive\Release\Survive.lib" /MACHINE:X86 Release\main.obj
-     1>sfml-graphics.lib(sfml-graphics-2.dll) : fatal error LNK1112: module machine type 'x64' conflicts with target machine type 'X86'
-     1>Done Building Project "C:\Users\Mauricio\Documents\GitHub\SurviveGame\Survive\Survive.vcxproj" (build target(s)) -- FAILED.
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Mauricio\Documents\GitHub\SurviveGame\Survive\Release\Survive.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"C:\SFML-2.0\lib" "sfml-graphics.lib" "sfml-window.lib" "sfml-system.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release\Survive.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Mauricio\Documents\GitHub\SurviveGame\Survive\Release\Survive.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Mauricio\Documents\GitHub\SurviveGame\Survive\Release\Survive.lib" /MACHINE:X86 Release\main.obj
+         Generating code
+         Finished generating code
+         Survive.vcxproj -> C:\Users\Mauricio\Documents\GitHub\SurviveGame\Survive\Release\Survive.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Users\Mauricio\Documents\GitHub\SurviveGame\Survive\Release\Survive.exe;#1" /manifest Release\Survive.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         Deleting file "Release\Survive.unsuccessfulbuild".
+         Touching "Release\Survive.lastbuildstate".
+     1>Done Building Project "C:\Users\Mauricio\Documents\GitHub\SurviveGame\Survive\Survive.vcxproj" (build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:00.15
+Time Elapsed 00:00:00.92
