@@ -7,7 +7,7 @@
 // variaveis primitivas
 int WINDOW_W = 800, WINDOW_H = 600, PLAYER_COLOR [3] = {255,255,255}, ENEMY_COLOR [3] = {200,2,7}, SCORE = 150;
 float PLAYER_SPEED = 0.5,  PLAYER_SIZE = 10.0, ENEMY_SPEED = 0.2;
-// matriz da velocidade que os inimigos irão correr por frame (coluna = numero de inimigos / linha = velocidade dos eixos X e Y)
+// matriz da velocidade que os inimigos irï¿½o correr por frame (coluna = numero de inimigos / linha = velocidade dos eixos X e Y)
 const int ALL_ENEMIES = 3;
 double enemy_run[ALL_ENEMIES][2] = {0.3,0.5, 0.8,0.5, 0.2,0.7};
 
@@ -17,8 +17,8 @@ sf::View display(sf::FloatRect(200, 200, 300, 200));
 sf::Vector2f PLAYER_POS;
 sf::CircleShape player(PLAYER_SIZE), enemy_1(PLAYER_SIZE),enemy_2(PLAYER_SIZE),enemy_3(PLAYER_SIZE);
 
-// Funções do Jogo devem estar antes do main (Funções do jogo sempre começam com "s_"
-// movePlayer - move o player (obvio não haha)
+// Funï¿½ï¿½es do Jogo devem estar antes do main (Funï¿½ï¿½es do jogo sempre comeï¿½am com "s_"
+// movePlayer - move o player (obvio nï¿½o haha)
 void s_movePlayer(){
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && PLAYER_POS.x < WINDOW_W-player.getLocalBounds().width) player.move(PLAYER_SPEED,0);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && PLAYER_POS.x > 0.0) player.move(-PLAYER_SPEED,0);
@@ -26,7 +26,7 @@ void s_movePlayer(){
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && PLAYER_POS.y > 0.0) player.move(0,-PLAYER_SPEED);
 }
 
-// moveEnemy - função responsavel por mover o inimigo de forma aleatoriamente (com colisão na parede e calculo para movimento contrario)
+// moveEnemy - funï¿½ï¿½o responsavel por mover o inimigo de forma aleatoriamente (com colisï¿½o na parede e calculo para movimento contrario)
 // Parametros: A forma e o numero do inimigo
 void s_moveEnemy(sf::CircleShape e,int n_enemy){
 	if(e.getPosition().x > WINDOW_W-e.getLocalBounds().width || e.getPosition().x < 0.0) enemy_run[n_enemy][0]*=-1;
@@ -70,7 +70,7 @@ int main()
 	txt_score.setStyle(sf::Text::Bold);
 	txt_score.setPosition(20,WINDOW_H-20);	
 
-	// Variavel responsavel pela execução do jogo
+	// Variavel responsavel pela execuï¿½ï¿½o do jogo
 	bool RUN = false, DEAD = false;
 
     while (window.isOpen())
@@ -93,7 +93,7 @@ int main()
 
 			if(!DEAD){
 
-				// Chamando as funções criadas	
+				// Chamando as funï¿½ï¿½es criadas	
 				s_movePlayer();
 				/**
 				for(int i_enemy = 0; i_enemy < ALL_ENEMIES; i_enemy++){
@@ -141,6 +141,7 @@ int main()
 		
         window.display();
     }
+    printf("Mauricio negro")
 
     return 0;
 }
