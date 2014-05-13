@@ -2,6 +2,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <stdlib.h>
+#include <vector>
 
 // Variaveis "globais"
 // variaveis primitivas
@@ -16,6 +17,7 @@ sf::RenderWindow window(sf::VideoMode(WINDOW_W, WINDOW_H), "Survive - The Game")
 sf::View display(sf::FloatRect(200, 200, 300, 200));
 sf::Vector2f PLAYER_POS;
 sf::CircleShape player(PLAYER_SIZE), enemy_1(PLAYER_SIZE),enemy_2(PLAYER_SIZE),enemy_3(PLAYER_SIZE);
+std::vector<sf::CircleShape> enemies; //Vetor de inimigos
 
 // Fun��es do Jogo devem estar antes do main (Fun��es do jogo sempre come�am com "s_"
 // movePlayer - move o player (obvio n�o haha)
