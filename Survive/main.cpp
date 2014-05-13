@@ -141,7 +141,6 @@ int main()
 		
         window.display();
     }
-    printf("Mauricio negro")
 
     return 0;
 }
