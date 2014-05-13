@@ -142,6 +142,7 @@ int main()
         window.display();
     }
     printf("Carlos Viado");
+    printf("Mauricio viadão");
 
     return 0;
 }
