@@ -141,6 +141,7 @@ int main()
 		
         window.display();
     }
+    printf("Carlos Viado");
 
     return 0;
 }
