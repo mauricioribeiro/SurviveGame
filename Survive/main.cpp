@@ -12,11 +12,11 @@ float PLAYER_SPEED = 0.5,  PLAYER_SIZE = 10.0, ENEMY_SPEED = 0.2;
 const int ALL_ENEMIES = 3;
 double enemy_run[ALL_ENEMIES][2] = {0.3,0.5, 0.8,0.5, 0.2,0.7};
 
-typedef struct{ //Criado o objeto do tipo inimigo
+class enemyType{ //Criado o objeto do tipo inimigo
 	float SPEED, SIZE;
 	int COLOR[3];
 	double direction_run[2];
-}enemyType;
+};
 
 // variaveis nativas do SFML
 sf::RenderWindow window(sf::VideoMode(WINDOW_W, WINDOW_H), "Survive - The Game");
