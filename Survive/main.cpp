@@ -15,8 +15,7 @@ double enemy_run[ALL_ENEMIES][2] = {0.3,0.5, 0.8,0.5, 0.2,0.7};
 sf::RenderWindow window(sf::VideoMode(WINDOW_W, WINDOW_H), "Survive - The Game");
 sf::View display(sf::FloatRect(200, 200, 300, 200));
 sf::Vector2f PLAYER_POS;
-sf::CircleShape player(PLAYER_SIZE);
-sf::CircleShape enemies[ALL_ENEMIES];
+sf::CircleShape player(PLAYER_SIZE), enemies[ALL_ENEMIES];
 
 // Funcoes do Jogo devem estar antes do main (Funcoes do jogo sempre comecam com "s_"
 // movePlayer - move o player (obvio nao haha)
