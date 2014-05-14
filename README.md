@@ -1,6 +1,3 @@
-Olhe a outra branche
-===========
-
 <h2>Sobre</h2>
 <p>Este é o repositorio do jogo beta Survive, que será escrito em C/C++ com o auxilio da biblioteca <a href="http://www.sfml-dev.org/" target="_blank">SFML (Versão 2.0)</a>.</p>
 
