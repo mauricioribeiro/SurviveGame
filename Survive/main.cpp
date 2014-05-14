@@ -36,7 +36,7 @@ void s_moveEnemy(sf::CircleShape e,int n_enemy){
 
 bool s_verificarMorte(int n_enemy){
 	int colisao_eixos = 0;
-	if(PLAYER_POS.x >= enemies[n_enemy].getPosition().x || PLAYER_POS.x <= enemies[n_enemy].getLocalBounds().width+enemies[n_enemy].getPosition().x) colisao_eixos = 1;
+	if(PLAYER_POS.x >= enemies[n_enemy].getPosition().x || PLAYER_POS.x <= enemies[n_enemy].getLocalBounds().width+enemies[n_enemy].getPosition().x) colisao_eixos += 1;
 	if(PLAYER_POS.y >= enemies[n_enemy].getPosition().y || PLAYER_POS.y <= enemies[n_enemy].getLocalBounds().height+enemies[n_enemy].getPosition().y) colisao_eixos += 1;
 	if(colisao_eixos==2)
 		return true;
