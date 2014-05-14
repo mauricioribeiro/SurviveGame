@@ -7,7 +7,7 @@
 // variaveis primitivas
 int WINDOW_W = 800, WINDOW_H = 600, PLAYER_COLOR [3] = {255,255,255}, ENEMY_COLOR [3] = {200,2,7}, SCORE = 150;
 float PLAYER_SPEED = 0.5,  PLAYER_SIZE = 10.0, ENEMY_SPEED = 0.2;
-// matriz da velocidade que os inimigos irão correr por frame (coluna = numero de inimigos / linha = velocidade dos eixos X e Y)
+// matriz da velocidade que os inimigos irao correr por frame (coluna = numero de inimigos / linha = velocidade dos eixos X e Y)
 const int ALL_ENEMIES = 3;
 double enemy_run[ALL_ENEMIES][2] = {0.3,0.5, 0.8,0.5, 0.2,0.7};
 
@@ -18,8 +18,8 @@ sf::Vector2f PLAYER_POS;
 sf::CircleShape player(PLAYER_SIZE);
 sf::CircleShape enemies[ALL_ENEMIES];
 
-// Funções do Jogo devem estar antes do main (Funções do jogo sempre começam com "s_"
-// movePlayer - move o player (obvio não haha)
+// Funcoes do Jogo devem estar antes do main (Funcoes do jogo sempre comecam com "s_"
+// movePlayer - move o player (obvio nao haha)
 void s_movePlayer(){
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && PLAYER_POS.x < WINDOW_W-player.getLocalBounds().width) player.move(PLAYER_SPEED,0);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && PLAYER_POS.x > 0.0) player.move(-PLAYER_SPEED,0);
@@ -27,7 +27,7 @@ void s_movePlayer(){
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && PLAYER_POS.y > 0.0) player.move(0,-PLAYER_SPEED);
 }
 
-// moveEnemy - função responsavel por mover o inimigo de forma aleatoriamente (com colisão na parede e calculo para movimento contrario)
+// moveEnemy - funcao responsavel por mover o inimigo de forma aleatoriamente (com colisao na parede e calculo para movimento contrario)
 // Parametros: A forma e o numero do inimigo
 void s_moveEnemy(sf::CircleShape e,int n_enemy){
 	if(e.getPosition().x > WINDOW_W-e.getLocalBounds().width || e.getPosition().x < 0.0) enemy_run[n_enemy][0]*=-1;
@@ -36,7 +36,11 @@ void s_moveEnemy(sf::CircleShape e,int n_enemy){
 
 bool s_verificarMorte(int n_enemy){
 	int colisao_eixos = 0;
+<<<<<<< HEAD
+	if(PLAYER_POS.x >= enemies[n_enemy].getPosition().x || PLAYER_POS.x <= enemies[n_enemy].getLocalBounds().width+enemies[n_enemy].getPosition().x) colisao_eixos = 1;
+=======
 	if(PLAYER_POS.x >= enemies[n_enemy].getPosition().x || PLAYER_POS.x <= enemies[n_enemy].getLocalBounds().width+enemies[n_enemy].getPosition().x) colisao_eixos += 1;
+>>>>>>> 351ba9093d65c2ad27bed76d7e13c77d815276b4
 	if(PLAYER_POS.y >= enemies[n_enemy].getPosition().y || PLAYER_POS.y <= enemies[n_enemy].getLocalBounds().height+enemies[n_enemy].getPosition().y) colisao_eixos += 1;
 	if(colisao_eixos==2)
 		return true;
@@ -74,7 +78,7 @@ int main()
 	txt_score.setStyle(sf::Text::Bold);
 	txt_score.setPosition(20,WINDOW_H-20);	
 
-	// Variavel responsavel pela execução do jogo
+	// Variavel responsavel pela execucao do jogo
 	bool RUN = false, DEAD = false;
 
     while (window.isOpen())
@@ -97,7 +101,7 @@ int main()
 
 			if(!DEAD){
 
-				// Chamando as funções criadas	
+				// Chamando as funcoes criadas	
 				s_movePlayer();
 
 				for(int i_enemy = 0; i_enemy < ALL_ENEMIES; i_enemy++){
