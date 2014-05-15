@@ -43,7 +43,18 @@ bool s_verificarMorte(int n_enemy){
 	else
 		return false;
 }
-
+// função para diminuir o tamanho do inimigo pela metade a cada buff.
+void s_tamanhoInimigo(){
+	for(int i_enemy = 0; i_enemy < ALL_ENEMIES;i_enemy++){
+		enemies[i_enemy].setRadius(ENEMY_SIZE/2);
+	}
+}
+// função para diminuir a velocidade do inimigo em 0.1 a cada buff.
+void s_velocidadeInimigo(){
+	for(int i_enemy = 0; i_enemy < ALL_ENEMIES;i_enemy++){
+		ENEMY_SPEED -= 0.1;
+	}
+}
 int main()
 {
 	// Criando e Configurando os objetos, texturas, entidades, etc...
