@@ -98,7 +98,7 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) RUN = true;
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) RUN = true && DEAD = false; // tentando redefinir o valor da variavel DEAD.
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) window.close();
 		
 		if(RUN){
@@ -106,7 +106,7 @@ int main()
 			// O JOGO!
 			PLAYER_POS = player.getPosition();
 
-			if(!DEAD){
+			if(DEAD==false){ // testar essa possibilidade.
 
 				// Chamando as funcoes criadas	
 				s_movePlayer();
