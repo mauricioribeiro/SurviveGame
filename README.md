@@ -7,7 +7,7 @@
 <li><a href="https://github.com/gomesgagore" target="_blank">Carlos V. (gomesgagore)</a></li>
 <li><a href="https://github.com/bfviana" target="_blank">Bruno (bfviana)</a></li>
 <li>Everton</li>
-<li>Carlos A.</li>
+<li><a href="https://github.com/carlosrjunior" target="_blank">Carlos A.</a></li>
 </ul>
 
 <h2>Escopo do Jogo</h2>
