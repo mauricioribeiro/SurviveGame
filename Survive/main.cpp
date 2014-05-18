@@ -130,9 +130,13 @@ int main()
 				window.draw(txt_score);
 
 			} else {
-				txt_welcome.setString("YOU ARE DEAD... your score is "+pscore);
+				txt_welcome.setString("YOU ARE DEAD... your score is "+pscore+"\nPress ENTER to play again or ESC to exit");
 				txt_welcome.setPosition((WINDOW_W-txt_welcome.getLocalBounds().width)/2,WINDOW_H/2+100);
 				window.draw(txt_welcome);
+				//reseta o jogo
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)){
+					RUN = false; DEAD = false; SCORE = 0;
+				}
 			}
 
 		} else {
