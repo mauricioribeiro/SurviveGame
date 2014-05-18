@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string>
 #include <sstream>
+#include <time.h>
 
 // Variaveis "globais"
 // variaveis primitivas
@@ -65,9 +66,10 @@ int main()
 
 	// molda os inimigos
 	for(int i_enemy = 0; i_enemy < ALL_ENEMIES;i_enemy++){
+		srand (time(NULL)); //Usado para gerar o seed do rand(), não sei por que mas isso não funciona fora do main
 		enemies[i_enemy].setRadius(PLAYER_SIZE);
-		enemies[i_enemy].setFillColor(sf::Color(ENEMY_COLOR[0],ENEMY_COLOR[1],ENEMY_COLOR[2]));
-		enemies[i_enemy].setPosition(enemy_start[i_enemy][0],enemy_start[i_enemy][1]);
+		enemies[i_enemy].setFillColor(sf::Color((rand() % 155)+100,(rand() % 155)+100,(rand() % 155)+100)); //Random colors!!!
+		enemies[i_enemy].setPosition(rand() % WINDOW_W,rand() % WINDOW_H); //Random positions!!!
 	}
 
 	txt_welcome.setColor(sf::Color::White);
