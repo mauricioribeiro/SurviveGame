@@ -51,6 +51,7 @@ bool s_verificarMorte(int n_enemy){
 
 int main()
 {
+	srand (time(NULL)); //Usado para gerar o seed do rand(), não sei por que mas isso não funciona fora do main
 	// Criando e Configurando os objetos, texturas, entidades, etc...
 	sf::Font font;
 	if(!font.loadFromFile("fonts/arial.ttf")) return -1;
@@ -66,7 +67,6 @@ int main()
 
 	// molda os inimigos
 	for(int i_enemy = 0; i_enemy < ALL_ENEMIES;i_enemy++){
-		srand (time(NULL)); //Usado para gerar o seed do rand(), não sei por que mas isso não funciona fora do main
 		enemies[i_enemy].setRadius(PLAYER_SIZE);
 		enemies[i_enemy].setFillColor(sf::Color((rand() % 155)+100,(rand() % 155)+100,(rand() % 155)+100)); //Random colors!!!
 		enemies[i_enemy].setPosition(rand() % WINDOW_W,rand() % WINDOW_H); //Random positions!!!
