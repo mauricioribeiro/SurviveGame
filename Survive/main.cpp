@@ -9,11 +9,10 @@
 // Variaveis "globais"
 // variaveis primitivas
 int WINDOW_W = 800, WINDOW_H = 600, PLAYER_COLOR [3] = {255,255,255}, SCORE = 0, SECONDS = 0;
-float PLAYER_SPEED = 6, PLAYER_SIZE = 10.0, ENEMY_SIZE = 10.0;
-bool SLOW = false, BIG = false, SMALL = false;
-bool POWER_UP[3] = { SLOW, BIG, SMALL };
+float PLAYER_SPEED = 5, PLAYER_SIZE = 10.0, ENEMY_SIZE = 10.0;
 // matriz da velocidade que os inimigos irao correr por frame (coluna = numero de inimigos / linha = velocidade dos eixos X e Y)
-const int ALL_ENEMIES =3;
+const int ALL_ENEMIES = 8;
+const int ALL_POWER = 3;
 int enemy_run[ALL_ENEMIES][2];
 int enemy_start[ALL_ENEMIES][2] = {0,0, 0,0, 0,0};
 
@@ -23,8 +22,11 @@ sf::View display(sf::FloatRect(200, 200, 300, 200));
 sf::Vector2f PLAYER_POS;
 sf::CircleShape player(PLAYER_SIZE);
 sf::CircleShape enemies[ALL_ENEMIES];
+
+sf::Sprite PowerUp [ALL_POWER];
+sf::Texture power1;
+
 sf::String pscore;
-sf::RectangleShape POWER_UP;
 
 
 // Funcoes do Jogo devem estar antes do main (Funcoes do jogo sempre comecam com "s_"
@@ -45,14 +47,14 @@ void s_moveEnemy(sf::CircleShape e,int n_enemy){
 
 bool s_verificarMorte(int n_enemy){
 	int colisao_eixos = 0;
-	if((int)PLAYER_POS.x >= (int)enemies[n_enemy].getPosition().x && (int)PLAYER_POS.x <= (int)enemies[n_enemy].getLocalBounds().width+enemies[n_enemy].getPosition().x) colisao_eixos += 1;
-	if((int)PLAYER_POS.y >= (int)enemies[n_enemy].getPosition().y && (int)PLAYER_POS.y <= (int)enemies[n_enemy].getLocalBounds().height+enemies[n_enemy].getPosition().y) colisao_eixos += 1;
+	if((int)PLAYER_POS.x >= (int)(enemies[n_enemy].getPosition().x-(ENEMY_SIZE/2)) && (int)PLAYER_POS.x <= (int)(enemies[n_enemy].getLocalBounds().width+enemies[n_enemy].getPosition().x+(ENEMY_SIZE/2))) colisao_eixos += 1;
+	if((int)PLAYER_POS.y >= (int)(enemies[n_enemy].getPosition().y-(ENEMY_SIZE/2)) && (int)PLAYER_POS.y <= (int)(enemies[n_enemy].getLocalBounds().height+enemies[n_enemy].getPosition().y+(ENEMY_SIZE/2))) colisao_eixos += 1;
 	if(colisao_eixos==2)
 		return true;
 	else
 		return false;
 }
-	// define uma posição randomica para os inimigos a cada inicio de jogo.
+
 void s_randomPosition(){
 	for(int i_enemy = 0; i_enemy < ALL_ENEMIES;i_enemy++){
 		enemies[i_enemy].setPosition(rand()%700+50,rand()%500+50);//posição dentro da tela, sem bug nas laterais.
@@ -98,9 +100,6 @@ void s_resetPlayerspeed(){
 	PLAYER_SPEED = 6;
 }
 
-/*bool s_powerUp(){
-	sf::RectangleShape POWER_UP.setPosition(rand()%700+50,rand()%500+50);
-}*/
 int main()
 {
 	srand (time(NULL));
@@ -115,19 +114,27 @@ int main()
 	player.setFillColor(sf::Color(PLAYER_COLOR[0],PLAYER_COLOR[1],PLAYER_COLOR[2]));
 	player.setPosition((WINDOW_W-player.getLocalBounds().width)/2,WINDOW_H/2+player.getLocalBounds().height);
 
-	for (int i =0; i<ALL_ENEMIES; i++){
-	enemy_run[i][0]=rand()%10 + 1;
-	enemy_run[i][1]= 10 - enemy_run[i][0];
-	}
+	if (!power1.loadFromFile("power1.png")) printf("error");
+	PowerUp[0].setTexture(power1);
+	PowerUp[1].setTexture(power1);
+	PowerUp[2].setTexture(power1);
 
 	window.setFramerateLimit(60);
 
 	// molda os inimigos
 	for(int i_enemy = 0; i_enemy < ALL_ENEMIES;i_enemy++){
+		enemy_run[i_enemy][0]=rand()%10 + 1;
+		enemy_run[i_enemy][1]=rand()%10 + 1;
 		enemies[i_enemy].setRadius(ENEMY_SIZE);
 		enemies[i_enemy].setFillColor(sf::Color((rand() % 155)+100,(rand() % 155)+100,(rand() % 155)+100)); //Random colors!!!
-		enemies[i_enemy].setPosition(rand()%700+50,rand()%500+50); //Random positions!!!
+		enemies[i_enemy].setPosition(rand() % (WINDOW_W - 100) + 50,rand() % (WINDOW_H - 100) + 50); //Random positions!!!
 	}
+
+	//molda os powerUps
+	for(int i = 0; i < ALL_POWER;i++){
+		PowerUp[i].setPosition(rand() % (WINDOW_W - 100) + 50,rand() % (WINDOW_H - 100) + 50); //Random positions!!!
+	}
+
 
 	txt_welcome.setColor(sf::Color::White);
 	txt_welcome.setStyle(sf::Text::Bold);
@@ -155,11 +162,12 @@ int main()
         }
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) RUN = true;
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) window.close();
-
+		
 		if(RUN){
 
 			// O JOGO!
 			PLAYER_POS = player.getPosition();
+
 			std::string pscore;
 			std::stringstream out;
 			out << SCORE;
@@ -168,27 +176,11 @@ int main()
 			if(!DEAD){
 				//Cria o score por segundos
 				SECONDS++;
-				if(SECONDS%260==0) SCORE++;
+				if(SECONDS%60==0) SCORE++;
 
 				// Chamando as funcoes criadas	
 				s_movePlayer();
-				if(sf::Keyboard::isKeyPressed(sf::Keyboard::N)){
-					s_nerfSize();
-				}
-				
-				if(sf::Keyboard::isKeyPressed(sf::Keyboard::R)){
-					s_resetSize();
-				}
 
-				if(sf::Keyboard::isKeyPressed(sf::Keyboard::B)){
-					s_buffSize();
-				}
-				if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
-					s_nerfSpeed();
-				}
-				if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-					s_resetPlayerspeed();
-				}
 				for(int i_enemy = 0; i_enemy < ALL_ENEMIES; i_enemy++){
 					s_moveEnemy(enemies[i_enemy],i_enemy);
 					enemies[i_enemy].move(enemy_run[i_enemy][0],enemy_run[i_enemy][1]);
@@ -196,8 +188,9 @@ int main()
 					if(DEAD==false) DEAD = s_verificarMorte(i_enemy);
 				}
 
-				txt_score.setString("SCORE: "+pscore);
+				//window.draw(PowerUp[1]);
 
+				txt_score.setString("SCORE: "+pscore);
 				window.draw(player);
 				window.draw(txt_score);
 
@@ -221,12 +214,12 @@ int main()
 
 			sf::Sprite sprite_bg(texture_bg);
 			texture_bg.create(WINDOW_W, WINDOW_H);
-
+			
 			window.draw(sprite_bg);
 			window.draw(txt_welcome);
 			window.draw(txt_credits);
 		}
-
+		
         window.display();
     }
 
