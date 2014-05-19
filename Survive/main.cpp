@@ -9,9 +9,11 @@
 // Variaveis "globais"
 // variaveis primitivas
 int WINDOW_W = 800, WINDOW_H = 600, PLAYER_COLOR [3] = {255,255,255}, SCORE = 0, SECONDS = 0;
-float PLAYER_SPEED = 5, PLAYER_SIZE = 10.0;
+float PLAYER_SPEED = 6, PLAYER_SIZE = 10.0, ENEMY_SIZE = 10.0;
+bool SLOW = false, BIG = false, SMALL = false;
+bool POWER_UP[3] = { SLOW, BIG, SMALL };
 // matriz da velocidade que os inimigos irao correr por frame (coluna = numero de inimigos / linha = velocidade dos eixos X e Y)
-const int ALL_ENEMIES = 12;
+const int ALL_ENEMIES =3;
 int enemy_run[ALL_ENEMIES][2];
 int enemy_start[ALL_ENEMIES][2] = {0,0, 0,0, 0,0};
 
@@ -22,6 +24,7 @@ sf::Vector2f PLAYER_POS;
 sf::CircleShape player(PLAYER_SIZE);
 sf::CircleShape enemies[ALL_ENEMIES];
 sf::String pscore;
+sf::RectangleShape POWER_UP;
 
 
 // Funcoes do Jogo devem estar antes do main (Funcoes do jogo sempre comecam com "s_"
@@ -49,7 +52,55 @@ bool s_verificarMorte(int n_enemy){
 	else
 		return false;
 }
+	// define uma posição randomica para os inimigos a cada inicio de jogo.
+void s_randomPosition(){
+	for(int i_enemy = 0; i_enemy < ALL_ENEMIES;i_enemy++){
+		enemies[i_enemy].setPosition(rand()%700+50,rand()%500+50);//posição dentro da tela, sem bug nas laterais.
+	}
+}
 
+	// diminiu o tamanho do inimigo a cada ocorrencia, até se atingir um limite.
+void s_nerfSize(){
+	for(int i_enemy = 0; i_enemy < ALL_ENEMIES;i_enemy++){
+		ENEMY_SIZE = ENEMY_SIZE - 1;
+		enemies[i_enemy].setRadius(ENEMY_SIZE);
+		if (ENEMY_SIZE <= 4){
+			ENEMY_SIZE = 4;
+		}
+	}
+}
+	// volta o tamanho dos inimigos ao normal.
+void s_resetSize(){
+	for(int i_enemy = 0; i_enemy < ALL_ENEMIES;i_enemy++){
+		ENEMY_SIZE = PLAYER_SIZE;
+		enemies[i_enemy].setRadius(ENEMY_SIZE);
+	}
+}
+	// aumenta o tamanho do inimigo a cada ocorrencia, até se atingir um limite.
+void s_buffSize(){
+	for(int i_enemy = 0; i_enemy < ALL_ENEMIES;i_enemy++){
+		ENEMY_SIZE = ENEMY_SIZE  + 1;
+		enemies[i_enemy].setRadius(ENEMY_SIZE);
+		if(ENEMY_SIZE >= 20){
+			ENEMY_SIZE = 20;
+		}
+	}
+}
+	// diminiu a velocidade do player a cada ocorrencia, até se atingir um limite.
+void s_nerfSpeed(){
+	PLAYER_SPEED = PLAYER_SPEED - 1;
+	if (PLAYER_SPEED <= 3){
+		PLAYER_SPEED = 3;
+	}
+}
+	// volta a velocidade do player ao normal.
+void s_resetPlayerspeed(){
+	PLAYER_SPEED = 6;
+}
+
+/*bool s_powerUp(){
+	sf::RectangleShape POWER_UP.setPosition(rand()%700+50,rand()%500+50);
+}*/
 int main()
 {
 	srand (time(NULL));
@@ -66,16 +117,16 @@ int main()
 
 	for (int i =0; i<ALL_ENEMIES; i++){
 	enemy_run[i][0]=rand()%10 + 1;
-	enemy_run[i][1]=rand()%10 + 1;
+	enemy_run[i][1]= 10 - enemy_run[i][0];
 	}
 
 	window.setFramerateLimit(60);
 
 	// molda os inimigos
 	for(int i_enemy = 0; i_enemy < ALL_ENEMIES;i_enemy++){
-		enemies[i_enemy].setRadius(PLAYER_SIZE);
+		enemies[i_enemy].setRadius(ENEMY_SIZE);
 		enemies[i_enemy].setFillColor(sf::Color((rand() % 155)+100,(rand() % 155)+100,(rand() % 155)+100)); //Random colors!!!
-		enemies[i_enemy].setPosition(rand() % WINDOW_W,rand() % WINDOW_H); //Random positions!!!
+		enemies[i_enemy].setPosition(rand()%700+50,rand()%500+50); //Random positions!!!
 	}
 
 	txt_welcome.setColor(sf::Color::White);
@@ -104,12 +155,11 @@ int main()
         }
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) RUN = true;
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) window.close();
-		
+
 		if(RUN){
 
 			// O JOGO!
 			PLAYER_POS = player.getPosition();
-
 			std::string pscore;
 			std::stringstream out;
 			out << SCORE;
@@ -122,7 +172,23 @@ int main()
 
 				// Chamando as funcoes criadas	
 				s_movePlayer();
+				if(sf::Keyboard::isKeyPressed(sf::Keyboard::N)){
+					s_nerfSize();
+				}
+				
+				if(sf::Keyboard::isKeyPressed(sf::Keyboard::R)){
+					s_resetSize();
+				}
 
+				if(sf::Keyboard::isKeyPressed(sf::Keyboard::B)){
+					s_buffSize();
+				}
+				if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
+					s_nerfSpeed();
+				}
+				if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
+					s_resetPlayerspeed();
+				}
 				for(int i_enemy = 0; i_enemy < ALL_ENEMIES; i_enemy++){
 					s_moveEnemy(enemies[i_enemy],i_enemy);
 					enemies[i_enemy].move(enemy_run[i_enemy][0],enemy_run[i_enemy][1]);
@@ -142,22 +208,25 @@ int main()
 				//reseta o jogo
  				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)){
  					RUN = false; DEAD = false; SCORE = 0;
+					s_randomPosition();
+					s_resetSize();
+					s_resetPlayerspeed();
  				}
 			}
 
 		} else {
 			// O MENU!
 			sf::Texture texture_bg;
-			if(!texture_bg.loadFromFile("img/survive.jpg")) return -1;
+			//if(!texture_bg.loadFromFile("Release/survive.jpg")) return -1;
 
 			sf::Sprite sprite_bg(texture_bg);
 			texture_bg.create(WINDOW_W, WINDOW_H);
-			
+
 			window.draw(sprite_bg);
 			window.draw(txt_welcome);
 			window.draw(txt_credits);
 		}
-		
+
         window.display();
     }
 
