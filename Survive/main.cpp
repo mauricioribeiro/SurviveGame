@@ -217,7 +217,7 @@ int main()
 		} else {
 			// O MENU!
 			sf::Texture texture_bg;
-			//if(!texture_bg.loadFromFile("Release/survive.jpg")) return -1;
+			if(!texture_bg.loadFromFile("img/survive.jpg")) return -1;
 
 			sf::Sprite sprite_bg(texture_bg);
 			texture_bg.create(WINDOW_W, WINDOW_H);
